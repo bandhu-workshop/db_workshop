@@ -287,10 +287,10 @@ Ask yourself for any endpoint:
 5. Can I safely retry on failure?  
 ```
 
-If all answers are YES ✅ → Idempotent
+If all answers are YES ✅ → Idempotent  
 If any answer is NO ❌ → Not idempotent
 
-👉 Add idempotency tests to CI/CD → Verify it works
+👉 Add idempotency tests to CI/CD → Verify it works  
 👉 Document Idempotency-Key header → Client guidance
 
 ---
