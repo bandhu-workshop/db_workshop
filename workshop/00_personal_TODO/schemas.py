@@ -19,7 +19,5 @@ class TodoResponse(BaseModel):
     description: str | None = None
     is_completed: bool
     created_at: str
-    model_config = ConfigDict(from_attributes=True)
 
-    # class Config:
-    #     orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
