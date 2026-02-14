@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from .config import settings
-from .database import init_db
+from .database import init_db, seed_db
 from .todo_api import router as todo_router
 
 
@@ -13,6 +13,11 @@ async def lifespan(app: FastAPI):
     print("Starting up the application...")
     # init database (create tables)
     init_db()
+    
+    # seed database with initial data (development/learning only)
+    # Set SEED_DB=true in .env or os.environ to enable seeding
+    if settings.debug:  # or add a SEED_DB setting
+        seed_db()
 
     yield
     # Shutdown code here

@@ -1,0 +1,27 @@
+[
+    {
+        "title": "Complete project documentation",
+        "description": "Write comprehensive documentation for the TODO API including endpoints, models, and usage examples.",
+        "is_completed": false
+    },
+    {
+        "title": "Review pull requests",
+        "description": "Review and merge pending pull requests from the development team. Check for code quality and test coverage.",
+        "is_completed": false
+    },
+    {
+        "title": "Fix database migration issue",
+        "description": "Investigate and resolve the schema drift issue in the database migration process described in DATABASE_SCHEMA_MIGRATION.md",
+        "is_completed": false
+    },
+    {
+        "title": "Implement idempotency checks",
+        "description": "Implement idempotency for API endpoints to ensure duplicate requests are handled gracefully.",
+        "is_completed": false
+    },
+    {
+        "title": "Set up CI/CD pipeline",
+        "description": "Configure GitHub Actions or similar CI/CD tool to automate testing and deployment processes.",
+        "is_completed": false
+    }
+]

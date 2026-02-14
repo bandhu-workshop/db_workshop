@@ -33,3 +33,29 @@ def init_db():
     from . import models  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
+    print("✅ Database tables initialized")
+
+
+# seed_db() - ONLY loads data
+def seed_db():
+    import json
+    from pathlib import Path
+
+    from . import models  # noqa: F401
+
+    session = SessionLocal()
+    try:
+        if session.query(models.Todo).count() == 0:
+            seed_file = Path(__file__).parent / "seed_data.json"
+            if seed_file.exists():
+                with open(seed_file, "r") as f:
+                    todos_data = json.load(f)
+
+                for todo_data in todos_data:
+                    todo = models.Todo(**todo_data)
+                    session.add(todo)
+
+                session.commit()
+                print(f"✅ Loaded {len(todos_data)} todos")
+    finally:
+        session.close()
