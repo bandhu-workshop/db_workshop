@@ -42,7 +42,7 @@ def create_todo(session: Session, todo: TodoCreate) -> Todo:
     try:
         session.commit()
         session.refresh(todo_item)
-    except IntegrityError as e:
+    except IntegrityError:
         session.rollback()
         raise HTTPException(
             status_code=409,
