@@ -12,7 +12,7 @@ class Todo(Base):
     __tablename__ = "todos"
 
     id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(255), nullable=False, unique=True)
+    title = Column(String(255), nullable=False)
     # Note: We use Text for description to allow for longer text, and we set nullable=True to make it optional.
     description = Column(Text, nullable=True)
     is_completed = Column(Boolean, default=False)

@@ -67,9 +67,5 @@ def delete_todo_endpoint(
     todo_id: int,
     session: Session = Depends(get_db),
 ):
-    success = delete_todo(session, todo_id)
-    if not success:
-        raise HTTPException(
-            status_code=404, detail=f"TODO item not found with id {todo_id}"
-        )
+    delete_todo(session, todo_id)
     return None

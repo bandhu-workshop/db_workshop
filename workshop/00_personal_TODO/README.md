@@ -209,7 +209,48 @@ Why?
 
 ---
 
-# 🔟 🧠 Permanent Thumb Rules (Memorize These)
+# 🔟 🧠 How to Identify Idempotency (Your Framework)
+
+Ask yourself for any endpoint:
+
+```
+1. Can I call this 3x with same input?  
+2. Will system be in identical state?  
+3. Will it create duplicates?  
+4. Will it double-charge?  
+5. Can I safely retry on failure?  
+```
+
+If all answers are YES ✅ → Idempotent
+If any answer is NO ❌ → Not idempotent
+
+👉 Add idempotency tests to CI/CD → Verify it works
+👉 Document Idempotency-Key header → Client guidance
+
+---
+
+# 1️⃣1️⃣ 🧠 Alembic (SQLAlchemy's migration tool)
+
+**Why**:
+- Tracks all schema changes in version control
+- Provides rollback capabilities
+- Documents when/why changes were made
+- Works with all database systems (SQLite, PostgreSQL, MySQL, etc.)
+- Team-friendly: Everyone applies same migrations in same order
+
+**Workflow**:
+```
+Code Change → Create Migration → Review Migration → Apply Migration → Commit Migration File
+```
+
+**Alembic Features**:
+- Auto-generates migrations from model changes
+- Manual migration control for complex changes
+- Environment-aware application (dev, staging, prod)
+- Upgrade/downgrade capability
+
+
+# 1️⃣2️⃣ 🧠 Permanent Thumb Rules (Memorize These)
 
 1️⃣ API handles HTTP. CRUD handles database.  
 2️⃣ CRUD never uses `Depends`.  

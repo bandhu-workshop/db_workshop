@@ -27,8 +27,6 @@ Golden Thumb Rules:
 5. Clean separation today = scalable system tomorrow.
 """
 
-from fastapi import HTTPException
-from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from .models import Todo
@@ -39,15 +37,8 @@ def create_todo(session: Session, todo: TodoCreate) -> Todo:
     # create a new todo item
     todo_item = Todo(**todo.model_dump())
     session.add(todo_item)
-    try:
-        session.commit()
-        session.refresh(todo_item)
-    except IntegrityError:
-        session.rollback()
-        raise HTTPException(
-            status_code=409,
-            detail=f"A TODO with this title `{todo.title}` already exists.",
-        )
+    session.commit()
+    session.refresh(todo_item)
     return todo_item
 
 
