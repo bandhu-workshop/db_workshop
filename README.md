@@ -1,38 +1,35 @@
 # Complete Database Learning Workshop - Project-Based Approach
 
+---
+
 ## 1️⃣ workshop/00_personal_TODO
 
-Dificulty: ⭐ Beginner  
-Duration: 2-3 hours  
-
-🎯 What You'll Learn
-- Basic CRUD operations (Create, Read, Update, Delete)  
-- Single table database design  
-- Primary keys and auto-increment  
-- SQLAlchemy ORM basics  
-- FastAPI route structure  
-- Database initialization  
+[See detailed README for this project](workshop/00_personal_TODO/README.md)
 
 
-❓ Why initialize DB at startup?
+**Difficulty:** ⭐ Beginner  
+**Duration:** 2–3 hours
 
-Because:
-- Tables should be created once
-- Not per request
-- Not manually
-- Not randomly
+---
 
-Typical startup tasks:
-- Create database tables
-- Initialize connection pools
-- Load ML models
-- Connect to Redis
-- Warm cache
+## 🎯 What You'll Learn
 
+* Basic CRUD operations (Create, Read, Update, Delete)
+* Single table database design
+* Primary keys and auto-increment
+* SQLAlchemy ORM fundamentals
+* FastAPI route structure
+* Database initialization using lifespan
 
-
-## Others
-- use `ctrl+i` for emoji picker
+---
 
 
-## References
+## 🛠️ Others
+
+* Use `Ctrl + i` for emoji picker
+
+---
+
+## 📚 References
+
+(To be filled as I progress)

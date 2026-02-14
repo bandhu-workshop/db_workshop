@@ -4,6 +4,7 @@ from fastapi import FastAPI
 
 from .config import settings
 from .database import init_db
+from .todo_api import router as todo_router
 
 
 @asynccontextmanager
@@ -22,8 +23,15 @@ app = FastAPI(app_name=settings.app_name, debug=settings.debug, lifespan=lifespa
 
 
 @app.get("/")
-def read_root():
-    return {"Hello": "World"}
+def health_check():
+    return {"status": "ok"}
+
+
+app.include_router(
+    prefix="/todos",
+    tags=["todos"],
+    router=todo_router,
+)
 
 
 if __name__ == "__main__":
