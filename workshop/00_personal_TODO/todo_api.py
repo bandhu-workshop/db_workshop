@@ -1,9 +1,9 @@
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, Header, HTTPException
 from sqlalchemy.orm import Session
 
 from .database import get_db
 from .schemas import TodoCreate, TodoResponse, TodoUpdate
-from .todo_crud import create_todo, delete_todo, get_todo, update_todo
+from .todo_crud import create_todo_with_idempotency, delete_todo, get_todo, update_todo
 
 router = APIRouter()
 
@@ -17,8 +17,12 @@ router = APIRouter()
 def create_todo_endpoint(
     todo: TodoCreate,
     session: Session = Depends(get_db),
+    idempotency_key: str | None = Header(None),
 ):
-    return create_todo(session, todo)
+    todo_item, is_new = create_todo_with_idempotency(
+        session, todo, idempotency_key=idempotency_key
+    )
+    return todo_item
 
 
 # get a TODO item by id

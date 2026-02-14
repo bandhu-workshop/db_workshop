@@ -209,7 +209,73 @@ Why?
 
 ---
 
-# 🔟 🧠 How to Identify Idempotency (Your Framework)
+# 🔟 🔁 Idempotency: Safe Retries with Idempotency-Key
+
+## What is Idempotency?
+
+**Definition**: Same input → Same result (every time), no duplicates.
+
+**Why it matters**: Network failures cause retries. Without idempotency:
+- POST /pay twice → Charged twice 💀
+- POST /todos twice → 2 identical todos ❌
+
+---
+
+## How We Implemented It
+
+**Concept**: Use an `Idempotency-Key` header + cache table
+
+```
+Client sends: POST /todos with Header: Idempotency-Key: uuid-1
+Server logic: 
+  1. Check cache: "Have I seen uuid-1 before?"
+  2. If YES:  Return cached todo (NO new creation!)
+  3. If NO:   Create new todo + store uuid-1→todo_id mapping
+
+Result: 3 identical requests → 1 todo ✅
+```
+
+**Files changed**:
+- Added `TodoIdempotency` model (cache table)
+- Added `create_todo_with_idempotency()` function
+- Updated POST endpoint to accept `Idempotency-Key` header
+
+## 🎯 Key Takeaways
+
+> 🏅 **Golden Rule**: Same Idempotency-Key → Same Result (always!)
+
+1. **Idempotency-Key Header**: Optional UUID from client
+2. **Cache Table**: Stores key → todo ID mapping
+3. **Check First**: Query cache before creating
+4. **Create Once**: Only create if key not found
+5. **Store Mapping**: Save key for future retries
+6. **Return Same**: Always return 201 with same todo
+
+---
+
+## Your API Status
+
+| Endpoint | Idempotent? |
+|----------|-----------|
+| GET `/todos/{id}` | ✅ YES (read-only) |
+| PUT `/todos/{id}` | ✅ YES (replaces state) |
+| DELETE `/todos/{id}` | ✅ YES (always 204) |
+| POST `/todos` | ✅ YES (with idempotency-key) |
+
+**100% idempotent!** 🚀
+
+---
+
+## 📚 Learn More
+
+See detailed docs in workspace root:
+- `IDEMPOTENCY_QUICK_REFERENCE.md` → Quick overview
+- `IDEMPOTENCY_WORKFLOW_COMPLETE.md` → Deep dive
+- `localdev/docs/idempotency/CURRENT_STATE_ANALYSIS.md` → Implementation analysis
+
+---
+
+# 1️⃣1️⃣ 🧠 How to Identify Idempotency (Your Framework)
 
 Ask yourself for any endpoint:
 
@@ -229,7 +295,7 @@ If any answer is NO ❌ → Not idempotent
 
 ---
 
-# 1️⃣1️⃣ 🧠 Alembic (SQLAlchemy's migration tool)
+# 1️⃣2️⃣ 🧠 Alembic (SQLAlchemy's migration tool)
 
 **Why**:
 - Tracks all schema changes in version control
@@ -250,7 +316,7 @@ Code Change → Create Migration → Review Migration → Apply Migration → Co
 - Upgrade/downgrade capability
 
 
-# 1️⃣2️⃣ 🧠 Permanent Thumb Rules (Memorize These)
+# 1️⃣3️⃣ 🧠 Permanent Thumb Rules (Memorize These)
 
 1️⃣ API handles HTTP. CRUD handles database.  
 2️⃣ CRUD never uses `Depends`.  
