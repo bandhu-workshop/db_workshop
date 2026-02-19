@@ -1,3 +1,4 @@
+from core.database import Base
 from sqlalchemy import (
     Boolean,
     Column,
@@ -8,8 +9,6 @@ from sqlalchemy import (
     Text,
     func,
 )
-
-from .database import Base
 
 
 class Todo(Base):

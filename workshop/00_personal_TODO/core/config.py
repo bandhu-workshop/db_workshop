@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8080
     debug: bool = True
-    database_url: str = "sqlite:///./database00.db"
+    database_url: str = "sqlite:///./database.db"
 
 
 settings = Settings()

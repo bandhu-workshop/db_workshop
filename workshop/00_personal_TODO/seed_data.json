@@ -7,7 +7,7 @@
     {
         "title": "Review pull requests",
         "description": "Review and merge pending pull requests from the development team. Check for code quality and test coverage.",
-        "is_completed": false
+        "is_completed": true
     },
     {
         "title": "Fix database migration issue",
@@ -17,7 +17,7 @@
     {
         "title": "Implement idempotency checks",
         "description": "Implement idempotency for API endpoints to ensure duplicate requests are handled gracefully.",
-        "is_completed": false
+        "is_completed": true
     },
     {
         "title": "Set up CI/CD pipeline",

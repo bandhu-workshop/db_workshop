@@ -27,10 +27,9 @@ Golden Thumb Rules:
 5. Clean separation today = scalable system tomorrow.
 """
 
+from models import Todo, TodoIdempotency
+from schemas import TodoCreate, TodoUpdate
 from sqlalchemy.orm import Session
-
-from .models import Todo, TodoIdempotency
-from .schemas import TodoCreate, TodoUpdate
 
 
 def get_todo_by_idempotency_key(session: Session, idempotency_key: str) -> Todo | None:

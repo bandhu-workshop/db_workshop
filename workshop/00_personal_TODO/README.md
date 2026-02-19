@@ -315,6 +315,30 @@ Code Change → Create Migration → Review Migration → Apply Migration → Co
 - Environment-aware application (dev, staging, prod)
 - Upgrade/downgrade capability
 
+**Common Alembic Commands**:
+```sh
+# Create new migration from model changes
+alembic revision --autogenerate -m "description"
+
+# Apply the latest migration
+alembic upgrade head
+
+# Rollback one migration
+alembic downgrade -1
+
+# Go to specific version
+alembic upgrade a1b2c3d4
+
+# See all migrations and status
+alembic history --verbose
+
+# See current database version
+alembic current
+
+# Rollback all migrations (dangerous!)
+alembic downgrade base
+```
+
 
 # 1️⃣3️⃣ 🧠 Permanent Thumb Rules (Memorize These)
 
