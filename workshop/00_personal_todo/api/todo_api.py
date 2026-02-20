@@ -1,8 +1,8 @@
 from core.database import get_db
-from fastapi import APIRouter, Depends, Header, HTTPException
+from fastapi import APIRouter, Depends, HTTPException
 from schemas import TodoCreate, TodoResponse, TodoUpdate
 from services.todo_crud import (
-    create_todo_with_idempotency,
+    create_todo,
     delete_todo,
     get_todo,
     update_todo,
@@ -21,12 +21,8 @@ router = APIRouter()
 def create_todo_endpoint(
     todo: TodoCreate,
     session: Session = Depends(get_db),
-    idempotency_key: str | None = Header(None),
 ):
-    todo_item, is_new = create_todo_with_idempotency(
-        session, todo, idempotency_key=idempotency_key
-    )
-    return todo_item
+    return create_todo(session, todo)
 
 
 # get a TODO item by id

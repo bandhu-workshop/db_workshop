@@ -27,26 +27,9 @@ Golden Thumb Rules:
 5. Clean separation today = scalable system tomorrow.
 """
 
-from models import Todo, TodoIdempotency
+from models import Todo
 from schemas import TodoCreate, TodoUpdate
 from sqlalchemy.orm import Session
-
-
-def get_todo_by_idempotency_key(session: Session, idempotency_key: str) -> Todo | None:
-    """
-    Check if we've already created a todo with this idempotency key.
-
-    Returns the cached todo if key exists, None otherwise.
-    """
-    record = (
-        session.query(TodoIdempotency)
-        .filter(TodoIdempotency.idempotency_key == idempotency_key)
-        .first()
-    )
-
-    if record:
-        return session.get(Todo, record.todo_id)
-    return None
 
 
 def create_todo(session: Session, todo: TodoCreate) -> Todo:
@@ -56,54 +39,6 @@ def create_todo(session: Session, todo: TodoCreate) -> Todo:
     session.commit()
     session.refresh(todo_item)
     return todo_item
-
-
-def create_todo_with_idempotency(
-    session: Session,
-    todo: TodoCreate,
-    idempotency_key: str | None = None,
-) -> tuple[Todo, bool]:
-    """
-    Create a todo with optional idempotency-key support.
-
-    Args:
-        session: SQLAlchemy session
-        todo: Todo data to create
-        idempotency_key: Optional idempotency key for deduplication
-
-    Returns:
-        tuple: (todo_item, is_new)
-        - is_new=True: newly created todo
-        - is_new=False: returned from cache (idempotency key match)
-
-    Logic:
-    1. If idempotency_key provided, check if we've seen it before
-    2. If cached, return the cached todo (idempotent!)
-    3. If not cached, create new todo
-    4. Store idempotency key for future calls
-    """
-    # Step 1: Check cache if key provided
-    if idempotency_key:
-        cached_todo = get_todo_by_idempotency_key(session, idempotency_key)
-        if cached_todo:
-            return cached_todo, False  # Return cached, not new
-
-    # Step 2: Create new todo (not in cache)
-    todo_item = Todo(**todo.model_dump())
-    session.add(todo_item)
-    session.commit()
-    session.refresh(todo_item)
-
-    # Step 3: Store idempotency key if provided
-    if idempotency_key:
-        idempotency_record = TodoIdempotency(
-            idempotency_key=idempotency_key,
-            todo_id=todo_item.id,
-        )
-        session.add(idempotency_record)
-        session.commit()
-
-    return todo_item, True  # Newly created
 
 
 def get_todo(session: Session, todo_id: int) -> Todo | None:
