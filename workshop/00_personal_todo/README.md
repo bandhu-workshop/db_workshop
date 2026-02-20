@@ -315,6 +315,35 @@ Code Change → Create Migration → Review Migration → Apply Migration → Co
 - Environment-aware application (dev, staging, prod)
 - Upgrade/downgrade capability
 
+**Migration Workflow (Step-by-Step)**
+
+Here's the exact workflow you'll follow every time you want to change the schema:  
+
+```sh
+1. UPDATE MODELS
+   └─→ models.py: Add new column or table
+
+2. CREATE MIGRATION
+   └─→ alembic revision --autogenerate -m "description"
+
+3. REVIEW MIGRATION
+   └─→ Open alembic/versions/xxx_description.py
+   └─→ Verify upgrade() and downgrade() look correct
+
+4. TEST LOCALLY
+   └─→ alembic upgrade head
+   └─→ alembic downgrade -1
+   └─→ alembic upgrade head
+
+5. VERIFY DATABASE CHANGED
+   └─→ Query the database to confirm schema changed
+
+6. COMMIT TO GIT
+   └─→ git add alembic/versions/xxx_description.py
+   └─→ git commit -m "feat: add column description"
+```
+
+
 **Common Alembic Commands**:
 ```sh
 # Create new migration from model changes
