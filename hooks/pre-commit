@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Pre-commit hook: enforce code formatting via `make check_format`
+set -euo pipefail
+
+HOOK_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(git -C "$HOOK_DIR" rev-parse --show-toplevel 2>/dev/null || git rev-parse --show-toplevel)"
+MAKE_DIR="$REPO_ROOT/workshop/00_personal_todo"
+
+echo "[pre-commit] Running check_format..."
+
+if ! make -C "$MAKE_DIR" check_format; then
+  echo ""
+  echo "[pre-commit] FAILED: Format check did not pass."
+  echo "  Run 'make format' inside workshop/00_personal_todo to fix, then re-stage and commit."
+  exit 1
+fi
+
+echo "[pre-commit] Format check passed."

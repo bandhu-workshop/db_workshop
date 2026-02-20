@@ -24,6 +24,16 @@
 ---
 
 
+## ⚙️ Setup
+
+After cloning, enable the git pre-commit hook (runs `make check_format` before every commit):
+
+```bash
+git config core.hooksPath hooks
+```
+
+---
+
 ## 🛠️ Others
 
 * Use `Ctrl + i` for emoji picker
