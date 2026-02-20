@@ -3,6 +3,7 @@ import re
 from datetime import datetime
 from logging.config import fileConfig
 
+import models  # noqa: F401 — ensures all models are registered on Base.metadata
 from alembic import context
 from core.database import Base, engine
 
