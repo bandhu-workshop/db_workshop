@@ -8,7 +8,7 @@ I've created **4 comprehensive guides** + **1 quick reference** to teach you Ale
 
 ## Your Learning Documents
 
-Located in: `/home/db/Work/db_workshop/localdev/docs/alembic_soft_delete_guide/`
+Located in: `/home/db/Work/db_workshop/docs/alembic_soft_delete_guide/`
 
 ### 1. **00_QUICK_REFERENCE.md** 🎯
 **What:** One-page cheat sheet
@@ -302,7 +302,7 @@ make db-test
 
 All your guides are in:
 ```
-/home/db/Work/db_workshop/localdev/docs/alembic_soft_delete_guide/
+/home/db/Work/db_workshop/docs/alembic_soft_delete_guide/
 ├── 00_QUICK_REFERENCE.md
 ├── 01_STEP_BY_STEP_ALEMBIC_SETUP.md
 ├── 02_HANDS_ON_EXERCISES.md
@@ -313,13 +313,20 @@ All your guides are in:
 Your project is at:
 ```
 /home/db/Work/db_workshop/workshop/00_personal_todo/
-├── models.py          ← Where you'll add columns
-├── services/
-│   └── todo_crud.py   ← Where you'll update CRUD functions
+├── app/
+│   ├── models.py          ← Where you'll add columns
+│   ├── schemas.py
+│   ├── api/
+│   │   └── todo_api.py
+│   ├── core/
+│   │   ├── config.py
+│   │   └── database.py
+│   └── services/
+│       └── todo_crud.py   ← Where you'll update CRUD functions
 ├── Makefile           ← Where you'll add db-* targets
 └── alembic/           ← Will be created by alembic init
     ├── versions/
-    │   └── 001_migration.py
+    │   └── 2026_02_21_001_initial.py
     └── env.py
 ```
 

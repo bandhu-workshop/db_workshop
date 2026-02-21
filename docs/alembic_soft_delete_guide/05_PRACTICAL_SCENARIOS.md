@@ -222,10 +222,10 @@ You want to:
 
 #### Step 1: Create a test database config
 
-Create a new file: `core/database_test.py`
+Create a new file: `app/core/database_test.py`
 
 ```python
-# core/database_test.py
+# app/core/database_test.py
 """Test database configuration - separate from production"""
 
 from sqlalchemy import create_engine
@@ -256,7 +256,7 @@ def get_test_db():
 
 def init_test_db():
     """Initialize test database with tables"""
-    from core.database import Base
+    from app.core.database import Base
     Base.metadata.create_all(bind=test_engine)
 ```
 

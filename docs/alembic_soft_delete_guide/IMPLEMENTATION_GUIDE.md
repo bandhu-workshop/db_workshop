@@ -24,11 +24,12 @@ uv run alembic init alembic
 
 This creates:
 ```
-alembic/
-├── versions/          ← Migration files will go here
-├── env.py             ← Database connection config
-├── script.py.mako     ← Template for new migrations
-└── alembic.ini        ← Configuration
+00_personal_todo/
+├── alembic.ini        ← Configuration (at project root)
+└── alembic/
+    ├── versions/          ← Migration files will go here
+    ├── env.py             ← Database connection config
+    └── script.py.mako     ← Template for new migrations
 ```
 
 #### Step 1.2: Configure `alembic/env.py`
@@ -38,14 +39,14 @@ Edit the generated `alembic/env.py` to:
 # Find the line: target_metadata = None
 # Replace it with:
 
-from core.database import Base
+from app.core.database import Base
 target_metadata = Base.metadata
 ```
 
 Also find the `get_engine()` function and replace it:
 ```python
 def get_engine():
-    from core.database import engine
+    from app.core.database import engine
     return engine
 ```
 
@@ -66,7 +67,7 @@ sqlalchemy.url =
 
 ### Phase 2: Update Models
 
-#### Step 2.1: Modify `models.py` to add `deleted_at` column
+#### Step 2.1: Modify `app/models.py` to add `deleted_at` column
 
 Add these lines to the `Todo` class:
 
@@ -81,9 +82,9 @@ deleted_at = Column(
 )
 ```
 
-Full updated `models.py`:
+Full updated `app/models.py`:
 ```python
-from core.database import Base
+from app.core.database import Base
 from sqlalchemy import (
     Boolean,
     Column,
@@ -226,7 +227,7 @@ This verifies:
 
 ### Phase 5: Update CRUD Functions
 
-#### Step 5.1: Update `services/todo_crud.py`
+#### Step 5.1: Update `app/services/todo_crud.py`
 
 Modify the CRUD functions to handle soft deletes:
 
@@ -241,8 +242,8 @@ Key Changes:
 """
 
 from datetime import datetime
-from models import Todo, TodoIdempotency
-from schemas import TodoCreate, TodoUpdate
+from app.models import Todo, TodoIdempotency
+from app.schemas import TodoCreate, TodoUpdate
 from sqlalchemy.orm import Session
 
 
@@ -371,7 +372,7 @@ def purge_todo(session: Session, todo_id: int) -> bool:
 
 ### Phase 6: Update API Routes (Optional but Recommended)
 
-#### Step 6.1: Add restore endpoint to `api/todo_api.py`
+#### Step 6.1: Add restore endpoint to `app/api/todo_api.py`
 
 Add this route to support restoring deleted todos:
 
@@ -386,7 +387,7 @@ def restore_todo_endpoint(
     session: Session = Depends(get_db),
 ):
     """Restore a soft-deleted todo."""
-    from services.todo_crud import restore_todo
+    from app.services.todo_crud import restore_todo
     
     todo_item = restore_todo(session, todo_id)
     if not todo_item:
@@ -400,7 +401,7 @@ def restore_todo_endpoint(
 
 ### Phase 7: Update Schemas (Optional but Recommended)
 
-#### Step 7.1: Add `deleted_at` to `TodoResponse` in `schemas.py`
+#### Step 7.1: Add `deleted_at` to `TodoResponse` in `app/schemas.py`
 
 ```python
 from datetime import datetime
@@ -596,10 +597,10 @@ curl -X POST http://localhost:8080/todos/1/restore
 ## Files to Modify Checklist
 
 - [ ] `alembic/` directory (created by `make db-init`)
-- [ ] `models.py` - Add `deleted_at` column
-- [ ] `services/todo_crud.py` - Update CRUD functions
-- [ ] `api/todo_api.py` - Add restore endpoint (optional)
-- [ ] `schemas.py` - Add `deleted_at` to response (optional)
+- [ ] `app/models.py` - Add `deleted_at` column
+- [ ] `app/services/todo_crud.py` - Update CRUD functions
+- [ ] `app/api/todo_api.py` - Add restore endpoint (optional)
+- [ ] `app/schemas.py` - Add `deleted_at` to response (optional)
 - [ ] `Makefile` - Add migration targets
 
 ---

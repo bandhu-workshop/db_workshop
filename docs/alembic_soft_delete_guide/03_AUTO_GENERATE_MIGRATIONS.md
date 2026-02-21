@@ -65,11 +65,11 @@ Should NOT show `deleted_at` column.
 
 ---
 
-### Step 2: Update `models.py` to add `deleted_at`
+### Step 2: Update `app/models.py` to add `deleted_at`
 
-Edit your `models.py` file and add the `deleted_at` column to the `Todo` class:
+Edit your `app/models.py` file and add the `deleted_at` column to the `Todo` class:
 
-**Find this in models.py:**
+**Find this in app/models.py:**
 ```python
 class Todo(Base):
     __tablename__ = "todos"
@@ -396,7 +396,7 @@ database is locked
 Here's what you'll do every time you want to change the schema:
 
 ```bash
-# 1. Update models.py
+# 1. Update app/models.py
 # (Add new column, create new table, etc)
 
 # 2. Create migration (Alembic auto-generates it!)

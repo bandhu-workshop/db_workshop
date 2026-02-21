@@ -26,10 +26,10 @@
 Timeline of what you did
 ────────────────────────
 
-  [1] Define models (models.py)
+  [1] Define models (app/models.py)
   [2] Run FastAPI → lifespan calls init_db()
         → Base.metadata.create_all()
-        → SQLite file (todos.db) created with correct tables
+        → SQLite file (database.db) created with correct tables
   [3] Set up Alembic
   [4] alembic revision --autogenerate
         → Alembic compares models vs DB
@@ -69,7 +69,7 @@ SQLAlchemy projects is the same principle:
 
 ```
 Development loop:
-  1. Edit model in models.py
+  1. Edit model in app/models.py
   2. alembic revision --autogenerate -m "add column X to todos"
   3. Review the generated file in alembic/versions/
   4. alembic upgrade head
@@ -166,7 +166,7 @@ async def lifespan(app: FastAPI):
 ### Phase 1: First-time project setup (before any DB exists)
 
 ```
-Step 1: Define your models in models.py
+Step 1: Define your models in app/models.py
 Step 2: Configure alembic/env.py to point at Base.metadata (already done in your project)
 Step 3: Generate the initial migration
           alembic revision --autogenerate -m "initial"
@@ -182,7 +182,7 @@ Step 6: Start FastAPI — no init_db() in lifespan
 ### Phase 2: Adding a new feature (changing the schema)
 
 ```
-Step 1: Edit models.py (add column, new table, rename, etc.)
+Step 1: Edit app/models.py (add column, new table, rename, etc.)
 Step 2: Generate migration
           alembic revision --autogenerate -m "add priority column to todos"
 Step 3: Review the generated file
@@ -242,7 +242,7 @@ Common cases where autogenerate gets it wrong:
 
 ```bash
 # from workshop/00_personal_todo/
-rm -f todos.db
+rm -f database.db
 ```
 
 ### Step 3: Delete all migration version files
@@ -286,9 +286,9 @@ You can also remove the `init_db` import from `main.py`:
 
 ```python
 # Remove this line from imports:
-from core.database import init_db, seed_db
+from app.core.database import init_db, seed_db
 # Replace with:
-from core.database import seed_db
+from app.core.database import seed_db
 ```
 
 ### Step 5: Generate a clean initial migration
@@ -339,7 +339,7 @@ INFO  [alembic.runtime.migration] Running upgrade  -> 2026_02_21_001, initial
 # Check alembic_version table has your revision
 uv run python -c "
 import sqlite3
-conn = sqlite3.connect('todos.db')
+conn = sqlite3.connect('database.db')
 print('Tables:', conn.execute(\"SELECT name FROM sqlite_master WHERE type='table'\").fetchall())
 print('Version:', conn.execute('SELECT * FROM alembic_version').fetchall())
 conn.close()
@@ -389,7 +389,7 @@ That approach is documented in `06_EXISTING_DATABASE_SETUP.md`.
 
 ```bash
 # ─── First time setup ───────────────────────────────────────────
-rm todos.db                                          # delete old DB
+rm database.db                                          # delete old DB
 rm alembic/versions/*.py                             # clear migrations
 # remove init_db() from main.py lifespan
 uv run alembic revision --autogenerate -m "initial"  # generate migration
@@ -398,7 +398,7 @@ uv run alembic upgrade head                          # apply (creates DB)
 uv run uvicorn main:app --reload                     # start FastAPI
 
 # ─── Adding a new model/column ──────────────────────────────────
-# edit models.py
+# edit app/models.py
 uv run alembic revision --autogenerate -m "add X"
 # review the generated file
 uv run alembic upgrade head
@@ -419,7 +419,7 @@ uv run alembic downgrade base   # all the way back (drops all tables)
 ┌──────────────────────────────────────────────────────────────────────┐
 │  Schema lifecycle order (always):                                     │
 │                                                                       │
-│  1. Edit model in models.py                                          │
+│  1. Edit model in app/models.py                                          │
 │  2. alembic revision --autogenerate -m "description"                 │
 │  3. Review generated file                                            │
 │  4. alembic upgrade head                                             │

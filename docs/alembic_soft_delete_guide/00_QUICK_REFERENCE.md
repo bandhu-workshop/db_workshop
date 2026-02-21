@@ -23,7 +23,7 @@ cd /home/db/Work/db_workshop/workshop/00_personal_todo
 uv run alembic init alembic
 
 # 2. Edit alembic/env.py
-# Add: from core.database import Base
+# Add: from app.core.database import Base
 # Change: target_metadata = Base.metadata
 
 # 3. Done!
@@ -246,10 +246,19 @@ def delete_todo(session, todo_id):
 /home/db/Work/db_workshop/workshop/00_personal_todo/
 ├── alembic/                 ← Created by: alembic init
 │   ├── versions/            ← Migration files go here
-│   │   └── 001_migration.py
+│   │   └── 2026_02_21_001_initial.py
 │   └── env.py               ← Configure database connection
 ├── alembic.ini              ← Configuration
-├── models.py                ← Your SQLAlchemy models
+├── app/
+│   ├── models.py            ← Your SQLAlchemy models
+│   ├── schemas.py           ← Pydantic schemas
+│   ├── api/
+│   │   └── todo_api.py
+│   ├── core/
+│   │   ├── config.py
+│   │   └── database.py
+│   └── services/
+│       └── todo_crud.py
 ├── main.py                  ← Your FastAPI app
 └── Makefile                 ← (Add db-* targets)
 ```
@@ -307,7 +316,7 @@ db-reset:
 ## Questions?
 
 Refer to the detailed guides in:
-`/home/db/Work/db_workshop/localdev/docs/alembic_soft_delete_guide/`
+`/home/db/Work/db_workshop/docs/alembic_soft_delete_guide/`
 
 You have:
 - `01_STEP_BY_STEP_ALEMBIC_SETUP.md` - Theory & concepts

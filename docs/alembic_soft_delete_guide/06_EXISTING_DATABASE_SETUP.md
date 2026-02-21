@@ -4,7 +4,7 @@
 
 ✅ You have:
 - Existing database (`database.db`) with data already in it
-- SQLAlchemy models defined (`models.py`)
+- SQLAlchemy models defined (`app/models.py`)
 - Alembic initialized but no migrations yet
 
 ❌ You DON'T have:
@@ -154,7 +154,7 @@ Your database:
 
 Now that you have the baseline, adding soft delete is easy:
 
-#### Step 1: Update models.py
+#### Step 1: Update app/models.py
 
 Add the `deleted_at` column:
 
@@ -209,7 +209,7 @@ Time 2: Stamp database
         └─ Mark: "DB is at initial_migration_baseline"
 
 Time 3: From now on, use normal migration workflow
-        ├─ Modify models.py
+        ├─ Modify app/models.py
         ├─ Create migration (auto-generate)
         ├─ Review migration
         └─ Apply migration (alembic upgrade head)
@@ -293,7 +293,7 @@ alembic stamp 2025_02_20_001
 **This is what you do for EVERY future change:**
 
 ```bash
-# 1. Modify models.py (add new column, table, etc.)
+# 1. Modify app/models.py (add new column, table, etc.)
 # (example: add deleted_at column)
 
 # 2. Create auto-generated migration
@@ -428,7 +428,7 @@ You've successfully:
 4. ✅ Can now move forward safely
 
 **From this point, every schema change:**
-- Modify models.py
+- Modify `app/models.py`
 - Run `alembic revision --autogenerate`
 - Run `alembic upgrade head`
 - Commit the migration file

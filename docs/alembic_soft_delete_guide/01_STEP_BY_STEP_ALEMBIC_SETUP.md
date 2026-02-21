@@ -19,14 +19,15 @@ You should see: `alembic, version 1.13.1` (or similar)
 Before we initialize, let's understand what Alembic creates:
 
 ```
-alembic/                    ← Alembic works in this directory
-├── versions/               ← Each migration file goes here (001_, 002_, etc)
-│   ├── 001_initial.py      ← Migration 1: Creates initial tables
-│   ├── 002_add_column.py   ← Migration 2: Adds a column
-│   └── 003_rename_field.py ← Migration 3: Renames a field
-├── env.py                  ← HOW to connect to your database
-├── script.py.mako          ← Template for generating new migrations
-└── alembic.ini             ← Configuration file (database URL, etc)
+00_personal_todo/           ← Your project root
+├── alembic.ini             ← Configuration file (database URL, etc)
+└── alembic/                ← Alembic works in this directory
+    ├── versions/           ← Each migration file goes here
+    │   ├── 2026_02_21_001_initial.py      ← Migration 1: Creates initial tables
+    │   ├── 2026_02_21_002_add_column.py   ← Migration 2: Adds a column
+    │   └── 2026_02_22_001_rename_field.py ← Migration 3: Renames a field
+    ├── env.py              ← HOW to connect to your database
+    └── script.py.mako      ← Template for generating new migrations
 ```
 
 **Key Concept**: Each migration file is like a Git commit, but for your database schema.
@@ -67,8 +68,16 @@ After this, your project structure looks like:
 │   └── script.py.mako
 ├── alembic.ini             ← NEW! Configuration
 ├── main.py
-├── models.py
-├── schemas.py
+├── app/
+│   ├── models.py
+│   ├── schemas.py
+│   ├── api/
+│   │   └── todo_api.py
+│   ├── core/
+│   │   ├── config.py
+│   │   └── database.py
+│   └── services/
+│       └── todo_crud.py
 ├── database.db
 └── ... (other files)
 ```
@@ -139,7 +148,7 @@ target_metadata = None
 
 ```python
 # Import your Base from your database module
-from core.database import Base
+from app.core.database import Base
 target_metadata = Base.metadata
 ```
 
@@ -168,7 +177,7 @@ def run_migrations_offline() -> None:
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode."""
 
-    from core.database import engine
+    from app.core.database import engine
     url = engine.url
     context.configure(
         url=url,
@@ -196,7 +205,7 @@ def run_migrations_online() -> None:
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
 
-    from core.database import engine
+    from app.core.database import engine
     connectable = engine
 ```
 

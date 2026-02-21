@@ -50,12 +50,12 @@ Database schema updated to match code
 ```
 alembic/
 ├── versions/
-│   ├── 001_add_users_table.py      ← Migration 1
-│   ├── 002_add_email_to_users.py   ← Migration 2
-│   └── 003_add_soft_delete.py      ← Migration 3 (we'll create this)
+│   ├── 2026_02_21_001_add_users_table.py      ← Migration 1
+│   ├── 2026_02_21_002_add_email_to_users.py   ← Migration 2
+│   └── 2026_02_22_001_add_soft_delete.py      ← Migration 3 (we'll create this)
 ├── env.py                           ← How to connect to DB
 ├── script.py.mako                   ← Template for new migrations
-└── alembic.ini                      ← Configuration
+└── (alembic.ini is at project root)
 ```
 
 **Key Point**: Each migration is **incremental**. Migration 002 depends on 001, and 003 depends on 002.
@@ -188,7 +188,7 @@ What needs to change?
 
 ### Step 2: Update the SQLAlchemy Model
 ```python
-# models.py
+# app/models.py
 from datetime import datetime
 from sqlalchemy import DateTime
 
@@ -211,7 +211,7 @@ This creates the alembic directory structure.
 ### Step 4: Configure Alembic (alembic/env.py)
 ```python
 # Tell Alembic how to connect to your database
-from core.database import engine, Base
+from app.core.database import engine, Base
 
 target_metadata = Base.metadata
 ```
@@ -248,7 +248,7 @@ alembic upgrade head      # Apply again (verify idempotency)
 
 ### Step 7: Update CRUD & API Logic
 ```python
-# services/todo_crud.py
+# app/services/todo_crud.py
 def get_todo(session: Session, todo_id: int) -> Todo | None:
     return session.query(Todo).filter(
         Todo.id == todo_id,

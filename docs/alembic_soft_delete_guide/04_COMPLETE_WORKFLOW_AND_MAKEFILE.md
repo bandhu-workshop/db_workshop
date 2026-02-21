@@ -46,7 +46,7 @@ uv run alembic current
 ### Phase 2: Every Time You Change Schema
 
 ```bash
-# Step 1: Change your models.py
+# Step 1: Change your app/models.py
 # (Add new column, create new table, etc)
 
 # Step 2: Create migration (auto-generate)
@@ -472,7 +472,7 @@ uv run alembic --version
 ### Problem: "env.py can't import Base"
 ```bash
 # Solution: Edit alembic/env.py
-# Make sure: from core.database import Base
+# Make sure: from app.core.database import Base
 ```
 
 ### Problem: "No changes detected"

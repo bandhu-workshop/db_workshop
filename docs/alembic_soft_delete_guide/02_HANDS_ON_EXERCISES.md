@@ -89,7 +89,7 @@ target_metadata = None
 
 ```python
 from alembic import context
-from core.database import Base  # ADD THIS LINE
+from app.core.database import Base  # ADD THIS LINE
 
 config = context.config
 target_metadata = Base.metadata  # CHANGE FROM None TO Base.metadata
