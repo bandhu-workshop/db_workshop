@@ -45,7 +45,7 @@ def seed_db():
     session = SessionLocal()
     try:
         if session.query(app.models.Todo).count() == 0:
-            seed_file = Path(__file__).parent.parent / "seed_data.json"
+            seed_file = Path(__file__).parent.parent.parent / "seed_data.json"
             if seed_file.exists():
                 with open(seed_file, "r") as f:
                     todos_data = json.load(f)

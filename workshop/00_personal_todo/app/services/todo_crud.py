@@ -41,6 +41,11 @@ def create_todo(session: Session, todo: TodoCreate) -> Todo:
     return todo_item
 
 
+def list_todos(session: Session) -> list[Todo]:
+    # list all todo items
+    return session.query(Todo).all()
+
+
 def get_todo(session: Session, todo_id: int) -> Todo | None:
     # get a todo item by id
     # instead of

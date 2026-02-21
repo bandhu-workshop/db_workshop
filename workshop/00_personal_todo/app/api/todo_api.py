@@ -1,12 +1,13 @@
-from core.database import get_db
-from fastapi import APIRouter, Depends, HTTPException
-from schemas import TodoCreate, TodoResponse, TodoUpdate
-from services.todo_crud import (
+from app.core.database import get_db
+from app.schemas import TodoCreate, TodoResponse, TodoUpdate
+from app.services.todo_crud import (
     create_todo,
     delete_todo,
     get_todo,
+    list_todos,
     update_todo,
 )
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 router = APIRouter()
@@ -23,6 +24,13 @@ def create_todo_endpoint(
     session: Session = Depends(get_db),
 ):
     return create_todo(session, todo)
+
+
+@router.get("/", response_model=list[TodoResponse], status_code=200)
+def list_todos_endpoint(
+    session: Session = Depends(get_db),
+):
+    return list_todos(session)
 
 
 # get a TODO item by id
