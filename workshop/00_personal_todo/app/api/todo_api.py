@@ -5,6 +5,8 @@ from app.services.todo_crud import (
     delete_todo,
     get_todo,
     list_todos,
+    restore_todo,
+    soft_delete_todo,
     update_todo,
 )
 from fastapi import APIRouter, Depends, HTTPException
@@ -46,7 +48,8 @@ def get_todo_endpoint(
     todo_item = get_todo(session, todo_id)
     if not todo_item:
         raise HTTPException(
-            status_code=404, detail=f"TODO item not found with id {todo_id}"
+            status_code=404,
+            detail=f"TODO item not found or not deleted with id {todo_id}",
         )
     return todo_item
 
@@ -65,7 +68,8 @@ def update_todo_endpoint(
     todo_item = update_todo(session, todo_id, todo)
     if not todo_item:
         raise HTTPException(
-            status_code=404, detail=f"TODO item not found with id {todo_id}"
+            status_code=404,
+            detail=f"TODO item not found or not deleted with id {todo_id}",
         )
     return todo_item
 
@@ -75,9 +79,51 @@ def update_todo_endpoint(
     "/{todo_id}",
     status_code=204,
 )
-def delete_todo_endpoint(
+def soft_delete_todo_endpoint(
     todo_id: int,
     session: Session = Depends(get_db),
 ):
-    delete_todo(session, todo_id)
+    result = soft_delete_todo(session, todo_id)
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail=f"TODO item not found or not deleted with id {todo_id}",
+        )
     return None
+
+
+# hard delete a TODO item by id
+@router.delete(
+    "/{todo_id}/hard",
+    status_code=204,
+)
+def hard_delete_todo_endpoint(
+    todo_id: int,
+    session: Session = Depends(get_db),
+):
+    result = delete_todo(session, todo_id)
+    if not result:
+        raise HTTPException(
+            status_code=404,
+            detail=f"TODO item not found or not deleted with id {todo_id}",
+        )
+    return None
+
+
+# restore a soft-deleted TODO item by id
+@router.post(
+    "/{todo_id}/restore",
+    response_model=TodoResponse,
+    status_code=200,
+)
+def restore_todo_endpoint(
+    todo_id: int,
+    session: Session = Depends(get_db),
+):
+    todo_item = restore_todo(session, todo_id)
+    if not todo_item:
+        raise HTTPException(
+            status_code=404,
+            detail=f"TODO item not found or not deleted with id {todo_id}",
+        )
+    return todo_item

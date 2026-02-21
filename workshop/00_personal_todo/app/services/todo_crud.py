@@ -27,6 +27,8 @@ Golden Thumb Rules:
 5. Clean separation today = scalable system tomorrow.
 """
 
+from datetime import datetime, timezone
+
 from app.models import Todo
 from app.schemas import TodoCreate, TodoUpdate
 from sqlalchemy.orm import Session
@@ -41,9 +43,12 @@ def create_todo(session: Session, todo: TodoCreate) -> Todo:
     return todo_item
 
 
-def list_todos(session: Session) -> list[Todo]:
+def list_todos(session: Session, include_deleted: bool = False) -> list[Todo]:
     # list all todo items
-    return session.query(Todo).all()
+    query = session.query(Todo)
+    if not include_deleted:
+        query = query.filter(Todo.deleted_at.is_(None))
+    return query.all()
 
 
 def get_todo(session: Session, todo_id: int) -> Todo | None:
@@ -58,13 +63,21 @@ def get_todo(session: Session, todo_id: int) -> Todo | None:
     #   - Primary-key optimized
     #   - More modern (SQLAlchemy 1.4+ / 2.0 style)
 
-    return session.get(Todo, todo_id)
+    # todo_item = session.get(Todo, todo_id)
+    # if todo_item and todo_item.deleted_at is None:
+    #     return todo_item
+    # return None
+    return (
+        session.query(Todo)
+        .filter(Todo.id == todo_id, Todo.deleted_at.is_(None))
+        .first()
+    )
 
 
 def update_todo(session: Session, todo_id: int, todo: TodoUpdate) -> Todo | None:
     # update a todo item by id
     todo_item = session.get(Todo, todo_id)
-    if not todo_item:
+    if not todo_item or todo_item.deleted_at is not None:
         return None
 
     for key, value in todo.model_dump(exclude_unset=True).items():
@@ -84,3 +97,34 @@ def delete_todo(session: Session, todo_id: int) -> bool:
     session.delete(todo_item)
     session.commit()
     return True
+
+
+def soft_delete_todo(session: Session, todo_id: int) -> bool:
+    # soft delete a todo item by id
+    todo_item = (
+        session.query(Todo)
+        .filter(Todo.id == todo_id, Todo.deleted_at.is_(None))
+        .first()
+    )
+    if not todo_item:
+        return False
+
+    todo_item.deleted_at = datetime.now(timezone.utc)
+    session.commit()
+    return True
+
+
+def restore_todo(session: Session, todo_id: int) -> Todo | None:
+    # restore a soft-deleted todo item by id
+    todo_item = (
+        session.query(Todo)
+        .filter(Todo.id == todo_id, Todo.deleted_at.isnot(None))
+        .first()
+    )
+    if not todo_item:
+        return None
+
+    todo_item.deleted_at = None
+    session.commit()
+    session.refresh(todo_item)
+    return todo_item
