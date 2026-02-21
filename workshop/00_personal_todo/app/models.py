@@ -33,3 +33,6 @@ class Todo(Base):
         onupdate=func.now(),
         nullable=True,
     )
+
+    # soft delete support
+    deleted_at = Column(DateTime(timezone=True), nullable=True)
