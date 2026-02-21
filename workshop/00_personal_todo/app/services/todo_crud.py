@@ -74,6 +74,18 @@ def get_todo(session: Session, todo_id: int) -> Todo | None:
     )
 
 
+def get_all_completed_todo(session: Session) -> list[Todo]:
+    # get all completed todo items
+    return (
+        session.query(Todo)
+        .filter(
+            Todo.deleted_at.is_(None),
+            Todo.is_completed.is_(True),
+        )
+        .all()
+    )
+
+
 def update_todo(session: Session, todo_id: int, todo: TodoUpdate) -> Todo | None:
     # update a todo item by id
     todo_item = session.get(Todo, todo_id)

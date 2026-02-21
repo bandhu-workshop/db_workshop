@@ -3,6 +3,7 @@ from app.schemas import TodoCreate, TodoResponse, TodoUpdate
 from app.services.todo_crud import (
     create_todo,
     delete_todo,
+    get_all_completed_todo,
     get_todo,
     list_todos,
     restore_todo,
@@ -35,6 +36,19 @@ def list_todos_endpoint(
     return list_todos(session)
 
 
+# get all completed TODO items
+@router.get(
+    "/completed",
+    response_model=list[TodoResponse],
+    status_code=200,
+)
+def get_completed_todo_endpoint(
+    session: Session = Depends(get_db),
+):
+    todo_items = get_all_completed_todo(session)
+    return todo_items
+
+
 # get a TODO item by id
 @router.get(
     "/{todo_id}",
@@ -49,7 +63,7 @@ def get_todo_endpoint(
     if not todo_item:
         raise HTTPException(
             status_code=404,
-            detail=f"TODO item not found or not deleted with id {todo_id}",
+            detail=f"TODO item not found with id {todo_id}",
         )
     return todo_item
 
@@ -69,7 +83,7 @@ def update_todo_endpoint(
     if not todo_item:
         raise HTTPException(
             status_code=404,
-            detail=f"TODO item not found or not deleted with id {todo_id}",
+            detail=f"TODO item not found with id {todo_id}",
         )
     return todo_item
 
@@ -87,7 +101,7 @@ def soft_delete_todo_endpoint(
     if not result:
         raise HTTPException(
             status_code=404,
-            detail=f"TODO item not found or not deleted with id {todo_id}",
+            detail=f"TODO item not found or already deleted with id {todo_id}",
         )
     return None
 
@@ -105,7 +119,7 @@ def hard_delete_todo_endpoint(
     if not result:
         raise HTTPException(
             status_code=404,
-            detail=f"TODO item not found or not deleted with id {todo_id}",
+            detail=f"TODO item not found or not soft-deleted with id {todo_id}",
         )
     return None
 
