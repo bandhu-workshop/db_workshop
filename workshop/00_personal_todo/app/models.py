@@ -1,13 +1,15 @@
+from datetime import datetime
+
 from app.core.database import Base
 from sqlalchemy import (
     Boolean,
-    Column,
     DateTime,
     Integer,
     String,
     Text,
     func,
 )
+from sqlalchemy.orm import Mapped, mapped_column
 
 
 class Todo(Base):
@@ -18,21 +20,23 @@ class Todo(Base):
 
     __tablename__ = "todos"
 
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(255), nullable=False)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+    title: Mapped[str] = mapped_column(String(255), nullable=False)
     # Note: We use Text for description to allow for longer text, and we set nullable=True to make it optional.
-    description = Column(Text, nullable=True)
-    is_completed = Column(Boolean, default=False)
-    created_at = Column(
+    description: Mapped[str | None] = mapped_column(Text, nullable=True)
+    is_completed: Mapped[bool] = mapped_column(Boolean, default=False)
+    created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
         nullable=False,
     )
-    updated_at = Column(
+    updated_at: Mapped[datetime | None] = mapped_column(
         DateTime(timezone=True),
         onupdate=func.now(),
         nullable=True,
     )
 
     # soft delete support
-    deleted_at = Column(DateTime(timezone=True), nullable=True)
+    deleted_at: Mapped[datetime | None] = mapped_column(
+        DateTime(timezone=True), nullable=True
+    )
