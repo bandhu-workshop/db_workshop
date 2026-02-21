@@ -1,27 +1,102 @@
 [
     {
-        "title": "Complete project documentation",
-        "description": "Write comprehensive documentation for the TODO API including endpoints, models, and usage examples.",
+        "title": "Design database schema for blog system",
+        "description": "Create ER diagram and define tables for users, posts, comments, and tags with proper relationships and indexing strategy.",
         "is_completed": false
     },
     {
-        "title": "Review pull requests",
-        "description": "Review and merge pending pull requests from the development team. Check for code quality and test coverage.",
+        "title": "Implement user authentication",
+        "description": "Add JWT-based authentication with login, registration, password hashing, and token refresh mechanism.",
         "is_completed": true
     },
     {
-        "title": "Fix database migration issue",
-        "description": "Investigate and resolve the schema drift issue in the database migration process described in DATABASE_SCHEMA_MIGRATION.md",
+        "title": "Optimize slow API endpoints",
+        "description": "Profile API performance, identify bottlenecks, and optimize database queries using indexing and query refactoring.",
         "is_completed": false
     },
     {
-        "title": "Implement idempotency checks",
-        "description": "Implement idempotency for API endpoints to ensure duplicate requests are handled gracefully.",
+        "title": "Write unit tests for services layer",
+        "description": "Add pytest-based unit tests covering business logic and edge cases with proper mocking of database sessions.",
         "is_completed": true
     },
     {
-        "title": "Set up CI/CD pipeline",
-        "description": "Configure GitHub Actions or similar CI/CD tool to automate testing and deployment processes.",
+        "title": "Implement pagination for list APIs",
+        "description": "Add limit-offset and cursor-based pagination for listing endpoints with metadata in response.",
+        "is_completed": false
+    },
+    {
+        "title": "Add request validation schemas",
+        "description": "Define Pydantic models for request and response validation ensuring strict typing and field constraints.",
+        "is_completed": true
+    },
+    {
+        "title": "Set up Docker environment",
+        "description": "Create Dockerfile and docker-compose configuration for FastAPI app with PostgreSQL and Redis services.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement caching layer",
+        "description": "Integrate Redis caching for frequently accessed endpoints and implement cache invalidation strategy.",
+        "is_completed": false
+    },
+    {
+        "title": "Configure logging system",
+        "description": "Set up structured logging with log levels, JSON formatting, and request tracing support.",
+        "is_completed": true
+    },
+    {
+        "title": "Implement role-based access control",
+        "description": "Add RBAC support with admin and user roles restricting access to sensitive endpoints.",
+        "is_completed": false
+    },
+    {
+        "title": "Handle N+1 query problem",
+        "description": "Refactor ORM queries using eager loading strategies to prevent N+1 query performance issues.",
+        "is_completed": false
+    },
+    {
+        "title": "Add soft delete functionality",
+        "description": "Implement soft delete using is_deleted flag and ensure queries filter out logically deleted records.",
+        "is_completed": true
+    },
+    {
+        "title": "Implement background task processing",
+        "description": "Use Celery or FastAPI BackgroundTasks to handle asynchronous jobs like email notifications.",
+        "is_completed": false
+    },
+    {
+        "title": "Integrate Elasticsearch for search",
+        "description": "Set up Elasticsearch integration and sync data from PostgreSQL for full-text search capabilities.",
+        "is_completed": false
+    },
+    {
+        "title": "Add OpenAPI documentation enhancements",
+        "description": "Improve API documentation with detailed endpoint descriptions, examples, and proper response models.",
+        "is_completed": true
+    },
+    {
+        "title": "Implement rate limiting",
+        "description": "Add rate limiting middleware to prevent abuse using Redis-based request counters.",
+        "is_completed": false
+    },
+    {
+        "title": "Secure environment variables",
+        "description": "Move secrets to environment variables and configure Secret Manager for production deployment.",
+        "is_completed": true
+    },
+    {
+        "title": "Add health check endpoint",
+        "description": "Create a health check endpoint to verify database connectivity and service availability.",
+        "is_completed": true
+    },
+    {
+        "title": "Refactor project structure",
+        "description": "Reorganize project folders following clean architecture principles separating routers, services, and repositories.",
+        "is_completed": false
+    },
+    {
+        "title": "Deploy application to GCP",
+        "description": "Deploy FastAPI application to Google Cloud Run with proper IAM roles and CI/CD integration.",
         "is_completed": false
     }
 ]
