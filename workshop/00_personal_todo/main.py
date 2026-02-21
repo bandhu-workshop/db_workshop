@@ -1,8 +1,8 @@
 from contextlib import asynccontextmanager
 
-from api.todo_api import router as todo_router
-from core.config import settings
-from core.database import init_db, seed_db
+from app.api.todo_api import router as todo_router
+from app.core.config import settings
+from app.core.database import init_db, seed_db
 from fastapi import FastAPI
 
 

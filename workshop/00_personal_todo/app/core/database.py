@@ -1,4 +1,4 @@
-from core.config import settings
+from app.core.config import settings
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -29,7 +29,7 @@ def get_db():
 # init db
 def init_db():
     # important: ensures models are registered before creating tables
-    import models  # noqa: F401
+    import app.models  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
     print("✅ Database tables initialized")
@@ -40,18 +40,18 @@ def seed_db():
     import json
     from pathlib import Path
 
-    import models  # noqa: F401
+    import app.models  # noqa: F401
 
     session = SessionLocal()
     try:
-        if session.query(models.Todo).count() == 0:
+        if session.query(app.models.Todo).count() == 0:
             seed_file = Path(__file__).parent.parent / "seed_data.json"
             if seed_file.exists():
                 with open(seed_file, "r") as f:
                     todos_data = json.load(f)
 
                 for todo_data in todos_data:
-                    todo = models.Todo(**todo_data)
+                    todo = app.models.Todo(**todo_data)
                     session.add(todo)
 
                 session.commit()

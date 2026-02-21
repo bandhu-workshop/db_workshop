@@ -27,8 +27,8 @@ Golden Thumb Rules:
 5. Clean separation today = scalable system tomorrow.
 """
 
-from models import Todo
-from schemas import TodoCreate, TodoUpdate
+from app.models import Todo
+from app.schemas import TodoCreate, TodoUpdate
 from sqlalchemy.orm import Session
 
 
