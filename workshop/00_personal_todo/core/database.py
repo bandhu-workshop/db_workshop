@@ -5,9 +5,9 @@ from sqlalchemy.orm import sessionmaker
 
 # Create the SQLAlchemy engine
 engine = create_engine(
-    settings.database_url,
+    settings.DATABASE_URL,
     connect_args={"check_same_thread": False},
-    echo=settings.debug,
+    echo=settings.DEBUG,
 )
 
 # Create sessionmaker factory

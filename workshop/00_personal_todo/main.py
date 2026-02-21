@@ -11,11 +11,12 @@ async def lifespan(app: FastAPI):
     # Startup code here
     print("Starting up the application...")
     # init database (create tables)
-    init_db()
+    if not settings.SKIP_DB_INIT:  # add a setting to skip db init if needed
+        init_db()
 
     # seed database with initial data (development/learning only)
     # Set SEED_DB=true in .env or os.environ to enable seeding
-    if settings.debug:  # or add a SEED_DB setting
+    if settings.DEBUG:  # or add a SEED_DB setting
         seed_db()
 
     yield
@@ -23,7 +24,7 @@ async def lifespan(app: FastAPI):
     print("Shutting down the application...")
 
 
-app = FastAPI(app_name=settings.app_name, debug=settings.debug, lifespan=lifespan)
+app = FastAPI(app_name=settings.APP_NAME, debug=settings.DEBUG, lifespan=lifespan)
 
 
 @app.get("/")
@@ -41,4 +42,4 @@ app.include_router(
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host=settings.host, port=settings.port, reload=settings.debug)
+    uvicorn.run(app, host=settings.HOST, port=settings.PORT, reload=settings.DEBUG)
