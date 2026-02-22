@@ -25,3 +25,17 @@ class TodoResponse(BaseModel):
     deleted_at: datetime | None = None
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class PaginationInfo(BaseModel):
+    page: int
+    limit: int
+    total_items: int
+    total_pages: int
+    has_next: bool
+    has_previous: bool
+
+
+class PaginatedTodoResponse(BaseModel):
+    data: list[TodoResponse]
+    pagination: PaginationInfo

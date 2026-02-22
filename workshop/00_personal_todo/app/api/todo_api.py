@@ -1,5 +1,13 @@
+import math
+
 from app.core.database import get_db
-from app.schemas import TodoCreate, TodoResponse, TodoUpdate
+from app.schemas import (
+    PaginatedTodoResponse,
+    PaginationInfo,
+    TodoCreate,
+    TodoResponse,
+    TodoUpdate,
+)
 from app.services.todo_crud import (
     create_todo,
     delete_todo,
@@ -10,7 +18,7 @@ from app.services.todo_crud import (
     soft_delete_todo,
     update_todo,
 )
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from sqlalchemy.orm import Session
 
 router = APIRouter()
@@ -29,11 +37,25 @@ def create_todo_endpoint(
     return create_todo(session, todo)
 
 
-@router.get("/", response_model=list[TodoResponse], status_code=200)
+@router.get("/", response_model=PaginatedTodoResponse, status_code=200)
 def list_todos_endpoint(
     session: Session = Depends(get_db),
+    page: int = Query(default=1, ge=1, description="Page number, starting from 1"),
+    limit: int = Query(default=10, ge=1, le=20, description="Items per page (max 20)"),
 ):
-    return list_todos(session)
+    todos, total = list_todos(session, page=page, limit=limit)
+    total_pages = math.ceil(total / limit) if total else 0
+    return PaginatedTodoResponse(
+        data=[TodoResponse.model_validate(todo) for todo in todos],
+        pagination=PaginationInfo(
+            page=page,
+            limit=limit,
+            total_items=total,
+            total_pages=total_pages,
+            has_next=page < total_pages,
+            has_previous=page > 1,
+        ),
+    )
 
 
 # get all completed TODO items

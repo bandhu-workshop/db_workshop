@@ -43,12 +43,27 @@ def create_todo(session: Session, todo: TodoCreate) -> Todo:
     return todo_item
 
 
-def list_todos(session: Session, include_deleted: bool = False) -> list[Todo]:
-    # list all todo items
+def list_todos(
+    session: Session,
+    include_deleted: bool = False,
+    page: int = 1,
+    limit: int = 10,
+) -> tuple[list[Todo], int]:
+    # list paginated todo items — returns (items, total_count)
+    # total_count is the full count matching the filter (ignoring pagination)
+    # so the API layer can compute total_pages, has_next, has_previous
     query = session.query(Todo)
     if not include_deleted:
         query = query.filter(Todo.deleted_at.is_(None))
-    return query.all()
+
+    total_count = query.count()
+    items = (
+        query.order_by(Todo.created_at.desc(), Todo.id.desc())
+        .offset((page - 1) * limit)
+        .limit(limit)
+        .all()
+    )
+    return items, total_count
 
 
 def get_todo(session: Session, todo_id: int) -> Todo | None:
