@@ -42,8 +42,14 @@ def list_todos_endpoint(
     session: Session = Depends(get_db),
     page: int = Query(default=1, ge=1, description="Page number, starting from 1"),
     limit: int = Query(default=10, ge=1, le=20, description="Items per page (max 20)"),
+    q: str | None = Query(
+        default=None,
+        min_length=1,
+        max_length=100,
+        description="Search todos by title keyword (case-insensitive).",
+    ),
 ):
-    todos, total = list_todos(session, page=page, limit=limit)
+    todos, total = list_todos(session, page=page, limit=limit, q=q)
     total_pages = math.ceil(total / limit) if total else 0
     return PaginatedTodoResponse(
         data=[TodoResponse.model_validate(todo) for todo in todos],

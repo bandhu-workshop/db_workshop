@@ -48,6 +48,7 @@ def list_todos(
     include_deleted: bool = False,
     page: int = 1,
     limit: int = 10,
+    q: str | None = None,
 ) -> tuple[list[Todo], int]:
     # list paginated todo items — returns (items, total_count)
     # total_count is the full count matching the filter (ignoring pagination)
@@ -55,6 +56,11 @@ def list_todos(
     query = session.query(Todo)
     if not include_deleted:
         query = query.filter(Todo.deleted_at.is_(None))
+
+    # title keyword search — case-insensitive substring match
+    # ilike = case-insensitive LIKE; works on SQLite and PostgreSQL
+    if q:
+        query = query.filter(Todo.title.ilike(f"%{q.strip()}%"))
 
     total_count = query.count()
     items = (
