@@ -1,102 +1,897 @@
 [
     {
-        "title": "Design database schema for blog system",
-        "description": "Create ER diagram and define tables for users, posts, comments, and tags with proper relationships and indexing strategy.",
+        "title": "Understand HTTP fundamentals",
+        "description": "Study HTTP methods, status codes, headers, cookies, and statelessness. Build small examples demonstrating GET, POST, PUT, DELETE.",
         "is_completed": false
     },
     {
-        "title": "Implement user authentication",
-        "description": "Add JWT-based authentication with login, registration, password hashing, and token refresh mechanism.",
-        "is_completed": true
-    },
-    {
-        "title": "Optimize slow API endpoints",
-        "description": "Profile API performance, identify bottlenecks, and optimize database queries using indexing and query refactoring.",
+        "title": "Implement RESTful CRUD API",
+        "description": "Create full CRUD endpoints following REST conventions including proper status codes and response structures.",
         "is_completed": false
     },
     {
-        "title": "Write unit tests for services layer",
-        "description": "Add pytest-based unit tests covering business logic and edge cases with proper mocking of database sessions.",
-        "is_completed": true
-    },
-    {
-        "title": "Implement pagination for list APIs",
-        "description": "Add limit-offset and cursor-based pagination for listing endpoints with metadata in response.",
+        "title": "Design database normalization",
+        "description": "Refactor database schema applying 1NF, 2NF, 3NF principles and document trade-offs.",
         "is_completed": false
     },
     {
-        "title": "Add request validation schemas",
-        "description": "Define Pydantic models for request and response validation ensuring strict typing and field constraints.",
-        "is_completed": true
-    },
-    {
-        "title": "Set up Docker environment",
-        "description": "Create Dockerfile and docker-compose configuration for FastAPI app with PostgreSQL and Redis services.",
+        "title": "Add database constraints",
+        "description": "Implement NOT NULL, UNIQUE, CHECK, and FOREIGN KEY constraints to enforce data integrity.",
         "is_completed": false
     },
     {
-        "title": "Implement caching layer",
-        "description": "Integrate Redis caching for frequently accessed endpoints and implement cache invalidation strategy.",
+        "title": "Implement database migrations",
+        "description": "Use Alembic to manage schema migrations including upgrade and downgrade scripts.",
         "is_completed": false
     },
     {
-        "title": "Configure logging system",
-        "description": "Set up structured logging with log levels, JSON formatting, and request tracing support.",
-        "is_completed": true
-    },
-    {
-        "title": "Implement role-based access control",
-        "description": "Add RBAC support with admin and user roles restricting access to sensitive endpoints.",
+        "title": "Add database indexing strategy",
+        "description": "Create indexes on frequently queried columns and measure performance improvements.",
         "is_completed": false
     },
     {
-        "title": "Handle N+1 query problem",
-        "description": "Refactor ORM queries using eager loading strategies to prevent N+1 query performance issues.",
+        "title": "Explore transaction management",
+        "description": "Implement commit, rollback, and isolation levels with practical concurrency examples.",
         "is_completed": false
     },
     {
-        "title": "Add soft delete functionality",
-        "description": "Implement soft delete using is_deleted flag and ensure queries filter out logically deleted records.",
-        "is_completed": true
-    },
-    {
-        "title": "Implement background task processing",
-        "description": "Use Celery or FastAPI BackgroundTasks to handle asynchronous jobs like email notifications.",
+        "title": "Handle concurrent requests",
+        "description": "Simulate concurrent API calls and ensure thread-safe database interactions.",
         "is_completed": false
     },
     {
-        "title": "Integrate Elasticsearch for search",
-        "description": "Set up Elasticsearch integration and sync data from PostgreSQL for full-text search capabilities.",
+        "title": "Implement input sanitization",
+        "description": "Protect against SQL injection and XSS attacks through proper validation and escaping.",
         "is_completed": false
     },
     {
-        "title": "Add OpenAPI documentation enhancements",
-        "description": "Improve API documentation with detailed endpoint descriptions, examples, and proper response models.",
-        "is_completed": true
-    },
-    {
-        "title": "Implement rate limiting",
-        "description": "Add rate limiting middleware to prevent abuse using Redis-based request counters.",
+        "title": "Add API versioning",
+        "description": "Implement versioned endpoints using URL prefix or headers and maintain backward compatibility.",
         "is_completed": false
     },
     {
-        "title": "Secure environment variables",
-        "description": "Move secrets to environment variables and configure Secret Manager for production deployment.",
-        "is_completed": true
-    },
-    {
-        "title": "Add health check endpoint",
-        "description": "Create a health check endpoint to verify database connectivity and service availability.",
-        "is_completed": true
-    },
-    {
-        "title": "Refactor project structure",
-        "description": "Reorganize project folders following clean architecture principles separating routers, services, and repositories.",
+        "title": "Configure CORS policies",
+        "description": "Set up proper CORS configuration and understand cross-origin security risks.",
         "is_completed": false
     },
     {
-        "title": "Deploy application to GCP",
-        "description": "Deploy FastAPI application to Google Cloud Run with proper IAM roles and CI/CD integration.",
+        "title": "Implement global exception handling",
+        "description": "Create centralized error handlers returning consistent JSON error responses.",
+        "is_completed": false
+    },
+    {
+        "title": "Add request timeout handling",
+        "description": "Configure server and client timeouts and handle long-running requests gracefully.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement file upload feature",
+        "description": "Allow users to upload files securely and store metadata in the database.",
+        "is_completed": false
+    },
+    {
+        "title": "Store files in cloud storage",
+        "description": "Integrate object storage like GCS or S3 and manage signed URLs.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement WebSocket endpoint",
+        "description": "Create real-time communication endpoint and handle connection lifecycle events.",
+        "is_completed": false
+    },
+    {
+        "title": "Add async database queries",
+        "description": "Refactor synchronous database calls to asynchronous using async SQLAlchemy.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement connection pooling",
+        "description": "Configure and tune database connection pool settings for performance.",
+        "is_completed": false
+    },
+    {
+        "title": "Profile memory usage",
+        "description": "Analyze memory consumption and optimize object lifecycle management.",
+        "is_completed": false
+    },
+    {
+        "title": "Benchmark API performance",
+        "description": "Use load testing tools to measure RPS, latency, and throughput under load.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement distributed caching",
+        "description": "Design cache key strategy and implement TTL-based invalidation.",
+        "is_completed": false
+    },
+    {
+        "title": "Design database backup strategy",
+        "description": "Create automated backup and restore plan including point-in-time recovery.",
+        "is_completed": false
+    },
+    {
+        "title": "Add structured metrics collection",
+        "description": "Integrate metrics like request count, latency, and error rates using Prometheus.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement health and readiness probes",
+        "description": "Create endpoints for liveness and readiness checks for container orchestration.",
+        "is_completed": false
+    },
+    {
+        "title": "Containerize application",
+        "description": "Optimize Docker image size and use multi-stage builds.",
+        "is_completed": false
+    },
+    {
+        "title": "Set up local Kubernetes cluster",
+        "description": "Deploy application using Minikube or Kind with services and ingress.",
+        "is_completed": false
+    },
+    {
+        "title": "Configure reverse proxy",
+        "description": "Set up Nginx as reverse proxy and configure SSL termination.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement load balancing",
+        "description": "Deploy multiple instances and configure load balancer to distribute traffic.",
+        "is_completed": false
+    },
+    {
+        "title": "Enable HTTPS with certificates",
+        "description": "Configure TLS using Let's Encrypt certificates.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement horizontal scaling",
+        "description": "Scale application instances based on CPU or request metrics.",
+        "is_completed": false
+    },
+    {
+        "title": "Add rate-based autoscaling",
+        "description": "Configure autoscaler policies using metrics thresholds.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement message queue system",
+        "description": "Integrate Redis or RabbitMQ for asynchronous job processing.",
+        "is_completed": false
+    },
+    {
+        "title": "Design retry mechanism",
+        "description": "Implement exponential backoff retry logic for transient failures.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement circuit breaker pattern",
+        "description": "Prevent cascading failures by introducing circuit breaker logic.",
+        "is_completed": false
+    },
+    {
+        "title": "Add distributed tracing",
+        "description": "Integrate OpenTelemetry for request tracing across services.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement JWT refresh rotation",
+        "description": "Design secure token rotation and revocation strategy.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement OAuth2 login",
+        "description": "Integrate third-party login providers like Google.",
+        "is_completed": false
+    },
+    {
+        "title": "Add multi-tenant support",
+        "description": "Design schema and middleware for tenant-based data isolation.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement feature flags",
+        "description": "Add feature toggles to enable gradual rollouts.",
+        "is_completed": false
+    },
+    {
+        "title": "Set up CI pipeline",
+        "description": "Configure automated testing and linting on pull requests.",
+        "is_completed": false
+    },
+    {
+        "title": "Configure CD pipeline",
+        "description": "Automate deployment to staging and production environments.",
+        "is_completed": false
+    },
+    {
+        "title": "Add blue-green deployment",
+        "description": "Implement zero-downtime deployment strategy using traffic switching.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement canary releases",
+        "description": "Gradually roll out new version to subset of users and monitor metrics.",
+        "is_completed": false
+    },
+    {
+        "title": "Design system architecture diagram",
+        "description": "Draw high-level architecture including client, API, DB, cache, queue, and load balancer.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement database replication",
+        "description": "Set up primary-replica configuration and route read traffic to replicas.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement sharding strategy",
+        "description": "Partition database by user ID and manage shard routing logic.",
+        "is_completed": false
+    },
+    {
+        "title": "Design consistent hashing mechanism",
+        "description": "Implement consistent hashing for distributed caching or sharding.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement eventual consistency model",
+        "description": "Design system tolerating eventual consistency with reconciliation logic.",
+        "is_completed": false
+    },
+    {
+        "title": "Build idempotent APIs",
+        "description": "Implement idempotency keys for POST requests to prevent duplicates.",
+        "is_completed": false
+    },
+    {
+        "title": "Design notification service",
+        "description": "Architect scalable email and push notification system.",
+        "is_completed": false
+    },
+    {
+        "title": "Design audit logging system",
+        "description": "Capture user actions with immutable audit trail storage.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement RBAC with hierarchical roles",
+        "description": "Design role hierarchy and permission matrix.",
+        "is_completed": false
+    },
+    {
+        "title": "Add API gateway layer",
+        "description": "Introduce API gateway handling authentication, routing, and throttling.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement service-to-service authentication",
+        "description": "Secure internal APIs using mutual TLS or service tokens.",
+        "is_completed": false
+    },
+    {
+        "title": "Design distributed logging aggregation",
+        "description": "Aggregate logs using ELK stack or cloud logging services.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement data validation at DB level",
+        "description": "Use triggers and constraints to enforce business rules.",
+        "is_completed": false
+    },
+    {
+        "title": "Design rate limiter using token bucket",
+        "description": "Implement token bucket algorithm for API throttling.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement sliding window rate limiter",
+        "description": "Build sliding window log algorithm using Redis.",
+        "is_completed": false
+    },
+    {
+        "title": "Design search indexing strategy",
+        "description": "Compare inverted index vs database full-text search.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement GraphQL endpoint",
+        "description": "Create GraphQL schema and resolvers alongside REST API.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement gRPC service",
+        "description": "Create gRPC service definition and client-server communication.",
+        "is_completed": false
+    },
+    {
+        "title": "Add request batching",
+        "description": "Implement batching to reduce network overhead.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement API caching headers",
+        "description": "Use ETag and Cache-Control headers for HTTP caching.",
+        "is_completed": false
+    },
+    {
+        "title": "Design high availability setup",
+        "description": "Ensure no single point of failure in architecture.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement disaster recovery plan",
+        "description": "Define RTO and RPO and test failover scenarios.",
+        "is_completed": false
+    },
+    {
+        "title": "Design CAP theorem trade-offs",
+        "description": "Analyze consistency, availability, partition tolerance decisions for your app.",
+        "is_completed": false
+    },
+    {
+        "title": "Design scalable chat system",
+        "description": "Architect WebSocket-based chat with horizontal scalability.",
+        "is_completed": false
+    },
+    {
+        "title": "Design URL shortener system",
+        "description": "Create scalable URL shortener with hash generation strategy.",
+        "is_completed": false
+    },
+    {
+        "title": "Design news feed system",
+        "description": "Architect fan-out on write vs fan-out on read strategies.",
+        "is_completed": false
+    },
+    {
+        "title": "Design distributed lock mechanism",
+        "description": "Implement Redis-based distributed locking.",
+        "is_completed": false
+    },
+    {
+        "title": "Design API monetization strategy",
+        "description": "Implement subscription tiers and usage billing tracking.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement data encryption at rest",
+        "description": "Enable database encryption and manage encryption keys securely.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement encryption in transit",
+        "description": "Secure service communication using TLS.",
+        "is_completed": false
+    },
+    {
+        "title": "Design microservices architecture",
+        "description": "Break monolith into services and define communication contracts.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement saga pattern",
+        "description": "Coordinate distributed transactions using saga orchestration.",
+        "is_completed": false
+    },
+    {
+        "title": "Design API throttling per user tier",
+        "description": "Differentiate rate limits based on subscription plan.",
+        "is_completed": false
+    },
+    {
+        "title": "Design observability strategy",
+        "description": "Define logging, metrics, tracing, and alerting strategy.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement monitoring alerts",
+        "description": "Create alert rules for high latency, errors, and resource usage.",
+        "is_completed": false
+    },
+    {
+        "title": "Design data retention policy",
+        "description": "Define archival and deletion policies for old records.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement API key management",
+        "description": "Generate, rotate, and revoke API keys securely.",
+        "is_completed": false
+    },
+    {
+        "title": "Design caching invalidation strategy",
+        "description": "Handle stale data and cache consistency challenges.",
+        "is_completed": false
+    },
+    {
+        "title": "Design large-scale file processing system",
+        "description": "Handle chunked uploads and background processing pipelines.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement distributed task scheduler",
+        "description": "Schedule periodic jobs across multiple instances.",
+        "is_completed": false
+    },
+    {
+        "title": "Design geo-distributed deployment",
+        "description": "Deploy services across multiple regions for low latency.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement API request tracing ID",
+        "description": "Propagate correlation IDs across services.",
+        "is_completed": false
+    },
+    {
+        "title": "Design real-time analytics pipeline",
+        "description": "Process streaming data using message broker and analytics engine.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement backpressure handling",
+        "description": "Control traffic spikes to prevent overload.",
+        "is_completed": false
+    },
+    {
+        "title": "Design scalable search engine",
+        "description": "Architect distributed search with indexing and ranking strategy.",
+        "is_completed": false
+    },
+    {
+        "title": "Prepare system design interview notes",
+        "description": "Document architecture patterns, trade-offs, and scalability principles.",
+        "is_completed": false
+    },
+    {
+        "title": "Set up virtual environment and dependency management",
+        "description": "Configure Python virtual environment using venv or poetry and manage dependencies with proper version pinning.",
+        "is_completed": false
+    },
+    {
+        "title": "Configure project linting and formatting",
+        "description": "Integrate black, isort, and flake8 to enforce code style and maintain clean codebase.",
+        "is_completed": false
+    },
+    {
+        "title": "Understand TCP vs UDP protocols",
+        "description": "Study differences between TCP and UDP and simulate simple socket communication examples.",
+        "is_completed": false
+    },
+    {
+        "title": "Explore DNS resolution process",
+        "description": "Understand how domain names resolve to IP addresses and trace DNS lookup steps.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement custom middleware",
+        "description": "Create middleware for logging request duration and modifying responses.",
+        "is_completed": false
+    },
+    {
+        "title": "Study HTTP caching mechanisms",
+        "description": "Understand ETag, Last-Modified, Cache-Control headers and implement conditional requests.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement graceful shutdown",
+        "description": "Handle SIGTERM and SIGINT signals ensuring active requests complete safely.",
+        "is_completed": false
+    },
+    {
+        "title": "Add request correlation logging",
+        "description": "Attach unique request IDs to logs for easier debugging and tracing.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement custom CLI commands",
+        "description": "Add CLI utilities for database seeding and maintenance tasks.",
+        "is_completed": false
+    },
+    {
+        "title": "Seed database with test data",
+        "description": "Create scripts to populate database with realistic dummy records.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement optimistic locking",
+        "description": "Add version column to prevent lost updates in concurrent transactions.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement pessimistic locking",
+        "description": "Use SELECT FOR UPDATE to handle critical transaction sections.",
+        "is_completed": false
+    },
+    {
+        "title": "Analyze query execution plans",
+        "description": "Use EXPLAIN ANALYZE to inspect database query performance.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement partial indexes",
+        "description": "Create partial indexes for frequently filtered subsets of data.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement composite indexes",
+        "description": "Create multi-column indexes and measure query improvements.",
+        "is_completed": false
+    },
+    {
+        "title": "Add full-text search using PostgreSQL",
+        "description": "Use tsvector and GIN indexes for efficient full-text search.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement soft and hard delete toggle",
+        "description": "Allow admin to permanently remove soft-deleted records.",
+        "is_completed": false
+    },
+    {
+        "title": "Configure connection timeout settings",
+        "description": "Tune database and HTTP client timeout parameters.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement data pagination metadata",
+        "description": "Return total count, page number, and page size in paginated responses.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement cursor-based pagination",
+        "description": "Use stable sorting and cursor tokens to handle large datasets efficiently.",
+        "is_completed": false
+    },
+    {
+        "title": "Create API documentation examples",
+        "description": "Add example request and response payloads in OpenAPI schema.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement request body size limits",
+        "description": "Restrict large payload uploads to prevent abuse.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement API response compression",
+        "description": "Enable gzip or brotli compression for faster data transfer.",
+        "is_completed": false
+    },
+    {
+        "title": "Configure environment-based settings",
+        "description": "Separate development, staging, and production configurations.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement secrets rotation strategy",
+        "description": "Rotate database passwords and API keys securely.",
+        "is_completed": false
+    },
+    {
+        "title": "Set up staging environment",
+        "description": "Deploy isolated staging environment mirroring production setup.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement rolling deployments",
+        "description": "Deploy updates incrementally without downtime.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement shadow traffic testing",
+        "description": "Mirror production traffic to new service version for validation.",
+        "is_completed": false
+    },
+    {
+        "title": "Set up load testing automation",
+        "description": "Automate periodic load tests using CI pipelines.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement resource quota limits",
+        "description": "Limit CPU and memory usage for container workloads.",
+        "is_completed": false
+    },
+    {
+        "title": "Design API gateway authentication layer",
+        "description": "Move authentication checks to centralized gateway component.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement service mesh basics",
+        "description": "Explore Istio or Linkerd concepts for service communication.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement distributed cache eviction policy",
+        "description": "Configure LRU and LFU eviction strategies.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement read-write splitting",
+        "description": "Route read queries to replica database nodes.",
+        "is_completed": false
+    },
+    {
+        "title": "Design schema migration rollback strategy",
+        "description": "Handle failed deployments with safe rollback plans.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement dead letter queue",
+        "description": "Capture failed messages for later reprocessing.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement idempotent background jobs",
+        "description": "Ensure retry-safe job execution.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement distributed rate limiter",
+        "description": "Use centralized Redis to limit requests across instances.",
+        "is_completed": false
+    },
+    {
+        "title": "Add circuit breaker metrics",
+        "description": "Track open and closed circuit states with monitoring.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement fallback strategies",
+        "description": "Return cached or default responses during service failure.",
+        "is_completed": false
+    },
+    {
+        "title": "Design API backward compatibility policy",
+        "description": "Document deprecation strategy and version sunset plan.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement rate limiting per IP",
+        "description": "Throttle requests based on IP address frequency.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement rate limiting per user",
+        "description": "Apply per-user request limits using Redis counters.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement streaming API responses",
+        "description": "Use chunked transfer encoding for large data sets.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement request deduplication",
+        "description": "Prevent duplicate submissions using idempotency keys.",
+        "is_completed": false
+    },
+    {
+        "title": "Design multi-region failover",
+        "description": "Configure cross-region database replication.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement cold start optimization",
+        "description": "Reduce startup latency for serverless deployments.",
+        "is_completed": false
+    },
+    {
+        "title": "Add custom domain configuration",
+        "description": "Map custom domain to deployed cloud service.",
+        "is_completed": false
+    },
+    {
+        "title": "Configure CDN integration",
+        "description": "Serve static assets using Content Delivery Network.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement API request throttling tiers",
+        "description": "Differentiate rate limits for free and premium users.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement bulk operations endpoint",
+        "description": "Allow batch create, update, delete operations efficiently.",
+        "is_completed": false
+    },
+    {
+        "title": "Design data archival service",
+        "description": "Move old data to cheaper storage tier.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement database connection health check",
+        "description": "Detect stale or dropped connections proactively.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement schema validation at DB level",
+        "description": "Use check constraints and triggers for validation.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement domain-driven design structure",
+        "description": "Organize codebase around domain concepts and aggregates.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement CQRS pattern",
+        "description": "Separate read and write models for scalability.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement event sourcing basics",
+        "description": "Store state changes as immutable events.",
+        "is_completed": false
+    },
+    {
+        "title": "Design scalable notification system",
+        "description": "Handle millions of push notifications reliably.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement priority job queue",
+        "description": "Process high-priority jobs before low-priority tasks.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement metrics dashboard",
+        "description": "Visualize request metrics and system health.",
+        "is_completed": false
+    },
+    {
+        "title": "Design capacity planning strategy",
+        "description": "Estimate traffic growth and required resources.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement SLA monitoring",
+        "description": "Track uptime and response time guarantees.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement distributed configuration service",
+        "description": "Manage runtime configs centrally across services.",
+        "is_completed": false
+    },
+    {
+        "title": "Design real-time feed system",
+        "description": "Implement push-based feed updates with WebSockets.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement token bucket algorithm",
+        "description": "Build rate limiter using token bucket logic.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement sliding window counter",
+        "description": "Create sliding window rate limiter with Redis.",
+        "is_completed": false
+    },
+    {
+        "title": "Design distributed cron scheduler",
+        "description": "Avoid duplicate job execution in clustered setup.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement leader election mechanism",
+        "description": "Elect a leader node in distributed environment.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement audit trail service",
+        "description": "Record all system changes with immutable logs.",
+        "is_completed": false
+    },
+    {
+        "title": "Design distributed ID generation",
+        "description": "Implement Snowflake-like unique ID generation system.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement bloom filter for caching",
+        "description": "Reduce cache penetration using bloom filters.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement request rate anomaly detection",
+        "description": "Detect abnormal traffic spikes.",
+        "is_completed": false
+    },
+    {
+        "title": "Design social graph data model",
+        "description": "Model followers and friend relationships efficiently.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement distributed search indexing",
+        "description": "Partition search index across multiple nodes.",
+        "is_completed": false
+    },
+    {
+        "title": "Design large-scale video upload service",
+        "description": "Support chunked uploads and resumable transfers.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement API usage analytics",
+        "description": "Track endpoint usage statistics per user.",
+        "is_completed": false
+    },
+    {
+        "title": "Design recommendation system backend",
+        "description": "Serve recommendations with caching and batch updates.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement multi-level caching",
+        "description": "Use in-memory and distributed cache layers.",
+        "is_completed": false
+    },
+    {
+        "title": "Design fault injection testing",
+        "description": "Simulate failures to test resilience.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement chaos testing basics",
+        "description": "Randomly terminate instances to test recovery.",
+        "is_completed": false
+    },
+    {
+        "title": "Design payment processing backend",
+        "description": "Handle transactional integrity and idempotency.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement webhook processing system",
+        "description": "Receive and validate third-party webhook events.",
+        "is_completed": false
+    },
+    {
+        "title": "Design high-scale leaderboard system",
+        "description": "Use sorted sets and ranking strategies.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement distributed cache warming",
+        "description": "Preload frequently accessed data into cache.",
+        "is_completed": false
+    },
+    {
+        "title": "Design analytics aggregation pipeline",
+        "description": "Aggregate logs into daily summary metrics.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement data consistency checker",
+        "description": "Validate data integrity across services.",
+        "is_completed": false
+    },
+    {
+        "title": "Design high-scale email delivery service",
+        "description": "Queue and throttle email sending reliably.",
+        "is_completed": false
+    },
+    {
+        "title": "Implement API throttling with leaky bucket",
+        "description": "Build leaky bucket rate limiter algorithm.",
+        "is_completed": false
+    },
+    {
+        "title": "Design distributed session management",
+        "description": "Store sessions in centralized cache store.",
+        "is_completed": false
+    },
+    {
+        "title": "Prepare senior-level system design portfolio",
+        "description": "Document multiple scalable system designs with trade-offs.",
         "is_completed": false
     }
 ]
