@@ -1,0 +1,12 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: personal_todo_postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin123}
+      POSTGRES_DB: ${POSTGRES_DB:-fastapi_db}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ../../localdev/data/personal_todo_pgdata:/var/lib/postgresql/data

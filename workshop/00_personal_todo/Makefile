@@ -14,3 +14,10 @@ format:
 run:
 	@echo "Starting API server..."
 	uv run python -m uvicorn main:app --host 0.0.0.0 --port=8080 --reload
+
+# ── Postgres (Docker Compose) ─────────────────────────────────────────────────
+db-start:
+	@docker compose up -d
+
+db-stop:
+	@docker compose down
