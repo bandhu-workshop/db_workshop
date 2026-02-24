@@ -1,0 +1,14 @@
+# Copy this file to .envrc and fill in your values.
+# Run `direnv allow` after editing to activate.
+#
+# .envrc is git-ignored. This file (.envrc.example) is safe to commit.
+#
+# This root-level .envrc controls the shared Postgres container
+# (docker-compose.yml at workspace root). All workshop projects
+# inherit these values.
+
+# ── Postgres (shared container) ───────────────────────────────────────────────
+export POSTGRES_USER=your_db_user
+export POSTGRES_PASSWORD=your_db_password
+export POSTGRES_DB=workshop_db
+export POSTGRES_PORT=5432

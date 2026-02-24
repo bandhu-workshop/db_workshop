@@ -1,5 +1,5 @@
 from app.core.config import settings
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
@@ -30,6 +30,10 @@ def get_db():
 def init_db():
     # important: ensures models are registered before creating tables
     import app.models  # noqa: F401
+
+    with engine.connect() as conn:
+        conn.execute(text('CREATE SCHEMA IF NOT EXISTS "00_personal_todo"'))
+        conn.commit()
 
     Base.metadata.create_all(bind=engine)
     print("✅ Database tables initialized")

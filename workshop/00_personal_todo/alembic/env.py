@@ -5,7 +5,9 @@ from logging.config import fileConfig
 
 import app.models  # noqa: F401 — registers all models on Base.metadata
 from alembic import context
+from app.core.config import settings
 from app.core.database import Base, engine
+from sqlalchemy import text
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -70,6 +72,9 @@ def run_migrations_offline() -> None:
         # render_as_batch=True, ## Only needed for SQLite, not needed for Postgres
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        ## These two args required for Alembic to generate correct CREATE TABLE statements with schema
+        include_schemas=True,
+        version_table_schema=settings.SCHEMA,
         process_revision_directives=process_revision_directives,
     )
 
@@ -90,9 +95,17 @@ def run_migrations_online() -> None:
     connectable = engine
 
     with connectable.connect() as connection:
+        # Ensure schema exists before migrations run
+        connection.execute(text(f'CREATE SCHEMA IF NOT EXISTS "{settings.SCHEMA}"'))
+        connection.execute(text(f'SET search_path TO "{settings.SCHEMA}", public'))
+        connection.commit()
+
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
+            ## These two args required for Alembic to generate correct CREATE TABLE statements with schema
+            include_schemas=True,
+            version_table_schema=settings.SCHEMA,
             # render_as_batch=True, ## Only needed for SQLite, not needed for Postgres
             process_revision_directives=process_revision_directives,
         )

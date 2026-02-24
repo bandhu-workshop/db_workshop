@@ -1,0 +1,15 @@
+# Copy this file to .envrc and fill in your values.
+# Run `direnv allow` after editing to activate.
+#
+# .envrc is git-ignored. This file (.envrc.example) is safe to commit.
+
+# ── Postgres ──────────────────────────────────────────────────────────────────
+export POSTGRES_USER=your_db_user
+export POSTGRES_PASSWORD=your_db_password
+export POSTGRES_DB=workshop_db
+export POSTGRES_PORT=5432
+export POSTGRES_URL="postgresql+psycopg2://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:${POSTGRES_PORT}/${POSTGRES_DB}"
+
+# ── App ───────────────────────────────────────────────────────────────────────
+# Used by SQLAlchemy / FastAPI app directly
+export DATABASE_URL=$POSTGRES_URL

@@ -1,5 +1,6 @@
 from datetime import datetime
 
+from app.core.config import settings
 from app.core.database import Base
 from sqlalchemy import (
     Boolean,
@@ -19,6 +20,7 @@ class Todo(Base):
     """
 
     __tablename__ = "todos"
+    __table_args__ = {"schema": settings.SCHEMA}
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
     title: Mapped[str] = mapped_column(String(255), nullable=False)
