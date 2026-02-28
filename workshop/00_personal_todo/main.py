@@ -1,6 +1,6 @@
 from contextlib import asynccontextmanager
 
-from app.api.todo_api import router as todo_router
+from app.api.v1.routers import router
 from app.core.config import settings
 from app.core.database import init_db, seed_db
 from fastapi import FastAPI
@@ -32,11 +32,7 @@ def health_check():
     return {"status": "ok"}
 
 
-app.include_router(
-    prefix="/todos",
-    tags=["todos"],
-    router=todo_router,
-)
+app.include_router(router=router, prefix="/api/v1")
 
 
 if __name__ == "__main__":
